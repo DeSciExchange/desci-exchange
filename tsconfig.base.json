@@ -20,5 +20,10 @@
       "@desci-exchange/core/loader": ["dist/libs/core/loader"]
     }
   },
-  "exclude": ["node_modules", "tmp"]
+  "exclude": ["node_modules", "tmp"],
+  "references": [
+    {
+      "path": "./.storybook/tsconfig.json"
+    }
+  ]
 }

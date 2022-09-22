@@ -5,6 +5,35 @@
     "connect": "packages/connect",
     "connect-e2e": "packages/connect-e2e",
     "core": "packages/core",
+    "core-e2e": {
+      "root": "packages/core-e2e",
+      "sourceRoot": "packages/core-e2e/src",
+      "projectType": "application",
+      "targets": {
+        "e2e": {
+          "executor": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "packages/core-e2e/cypress.config.ts",
+            "devServerTarget": "core:storybook",
+            "testingType": "e2e"
+          },
+          "configurations": {
+            "ci": {
+              "devServerTarget": "core:storybook:ci"
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["packages/core-e2e/**/*.{js,ts}"]
+          }
+        }
+      },
+      "tags": [],
+      "implicitDependencies": ["core"]
+    },
     "server": "packages/server"
   }
 }
