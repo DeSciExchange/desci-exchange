@@ -40,3 +40,7 @@ Thumbs.db
 !desci-exchange-banner-logo.eps
 packages/core-react/**/generated
 /.env
+/express/node_modules/
+/.idea/
+.env
+/node_modules/

@@ -8,7 +8,10 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "prettier": "prettier --write .",
-    "prettier:check": "prettier --check ."
+    "prettier:check": "prettier --check .",
+    "install": "cd server && npm install && cd ../client && npm install && cd ../express && npm install",
+    "prisma:generate": "cd server/prisma && npx prisma db pull",
+    "models:generate": "npx ts-node server/scripts/generateModels.ts"
   },
   "private": true,
   "devDependencies": {
