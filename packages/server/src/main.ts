@@ -1,22 +1,48 @@
-/**
- * This is not a production server yet!
- * This is only a minimal backend to get started.
- */
+import { ValidationPipe } from "@nestjs/common";
+import { NestFactory } from "@nestjs/core";
+import { OpenAPIObject, SwaggerModule } from "@nestjs/swagger";
+// @ts-ignore
+// eslint-disable-next-line
+import { AppModule } from "./app.module";
+import {
+  swaggerPath,
+  swaggerDocumentOptions,
+  swaggerSetupOptions,
+  // @ts-ignore
+  // eslint-disable-next-line
+} from "./swagger";
 
-import { Logger } from '@nestjs/common';
-import { NestFactory } from '@nestjs/core';
+const { PORT = 3000 } = process.env;
 
-import { AppModule } from './app/app.module';
+async function main() {
+  const app = await NestFactory.create(AppModule, { cors: true });
 
-async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-  const globalPrefix = 'api';
-  app.setGlobalPrefix(globalPrefix);
-  const port = process.env.PORT || 3333;
-  await app.listen(port);
-  Logger.log(
-    `🚀 Application is running on: http://localhost:${port}/${globalPrefix}`
+  app.setGlobalPrefix("api");
+  app.useGlobalPipes(
+    new ValidationPipe({
+      transform: true,
+    })
   );
+
+  const document = SwaggerModule.createDocument(app, swaggerDocumentOptions);
+
+  /** check if there is Public decorator for each path (action) and its method (findMany / findOne) on each controller */
+  Object.values((document as OpenAPIObject).paths).forEach((path: any) => {
+    Object.values(path).forEach((method: any) => {
+      if (
+        Array.isArray(method.security) &&
+        method.security.includes("isPublic")
+      ) {
+        method.security = [];
+      }
+    });
+  });
+
+  SwaggerModule.setup(swaggerPath, app, document, swaggerSetupOptions);
+
+  void app.listen(PORT);
+
+  return app;
 }
 
-bootstrap();
+module.exports = main();
