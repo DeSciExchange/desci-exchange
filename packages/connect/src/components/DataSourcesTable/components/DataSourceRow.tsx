@@ -8,7 +8,7 @@ type Props = {
 };
 
 class DataSourceButtonsContainer extends React.Component<{
-  buttons: any;
+  buttons: Button[];
   prop1: (item: Button, index: number) => any;
 }> {
   override render() {
@@ -18,6 +18,7 @@ class DataSourceButtonsContainer extends React.Component<{
   }
 }
 
+// noinspection CommaExpressionJS
 const DataSourceRow = ({ data }: Props): React.ReactElement => (
   <IonRow>
     <IonTitle>{data.displayName}</IonTitle>
@@ -26,6 +27,7 @@ const DataSourceRow = ({ data }: Props): React.ReactElement => (
       <DataSourceButtonsContainer
         buttons={data.buttons}
         prop1={(item, index) => (
+          // eslint-disable-next-line no-sequences
           updateDataSourceButtonLink(item),
           (
             <IonButton key={index} href={item.link}>
