@@ -44,14 +44,14 @@ function getAppPages() {
       mdIcon: mailSharp
     },
     {
-      title: "Outbox",
+      title: "Measurements",
       url: "/page/Outbox",
       iosIcon: paperPlaneOutline,
       mdIcon: paperPlaneSharp
     },
     {
-      title: "Favorites",
-      url: "/page/Favorites",
+      title: "Variables",
+      url: "/page/Variables",
       iosIcon: heartOutline,
       mdIcon: heartSharp
     },

@@ -1,4 +1,9 @@
-import { IonApp, IonRouterOutlet, IonSplitPane, setupIonicReact  } from '@ionic/react';
+import {
+  IonApp,
+  IonRouterOutlet,
+  IonSplitPane,
+  setupIonicReact,
+} from '@ionic/react';
 import { StatusBar, Style } from '@capacitor/status-bar';
 
 import { IonReactRouter } from '@ionic/react-router';
@@ -9,13 +14,17 @@ import Tabs from './pages/Tabs';
 
 setupIonicReact({});
 
-window.matchMedia("(prefers-color-scheme: dark)").addListener(async (status) => {
-  try {
-    await StatusBar.setStyle({
-      style: status.matches ? Style.Dark : Style.Light,
-    });
-  } catch {}
-});
+window
+  .matchMedia('(prefers-color-scheme: dark)')
+  .addListener(async (status) => {
+    try {
+      await StatusBar.setStyle({
+        style: status.matches ? Style.Dark : Style.Light,
+      });
+    } catch (e) {
+      console.error('Failed to set status bar style', e);
+    }
+  });
 
 const AppShell = () => {
   return (
